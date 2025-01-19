@@ -86,6 +86,7 @@ This is a Role based(Admin,User) Order Management System designed to help organi
 &nbsp;2. Signin
 - Endpoint: POST http://localhost:8086/auth/signin
 - Description: Log in the user.
+- ![image alt](https://github.com/jitendra511/Order-Management-Saga-Pattern-/blob/main/Images/signin.png?raw=true)
 
 &nbsp;3. Get all user (only admin can access)
 - Endpoint: GET http://localhost:8086/tm/getAllUser

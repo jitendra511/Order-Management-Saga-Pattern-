@@ -95,6 +95,7 @@ This is a Role based(Admin,User) Order Management System designed to help organi
 &nbsp;4. Add balance
 - Endpoint: POST http://localhost:8086/tm/addBalance
 - Description: Add balance to the logged user.
+- - ![add balance]()
 
 &nbsp;5. Get balance
 - Endpoint: GET http://localhost:8086/tm/getBalance

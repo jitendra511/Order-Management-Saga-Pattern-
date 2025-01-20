@@ -82,6 +82,7 @@ This is a Role based(Admin,User) Order Management System designed to help organi
 &nbsp;1. Signup
 - Endpoint: POST http://localhost:8086/auth/signup
 - Description: Register a new user
+- ![Signup]()
 
 &nbsp;2. Signin
 - Endpoint: POST http://localhost:8086/auth/signin
@@ -91,6 +92,7 @@ This is a Role based(Admin,User) Order Management System designed to help organi
 &nbsp;3. Get all user (only admin can access)
 - Endpoint: GET http://localhost:8086/tm/getAllUser
 - Description: Retrieves all User.
+- ![getAllUser](https://github.com/jitendra511/Order-Management-Saga-Pattern-/blob/main/Images/getAllUser.png)
 
 &nbsp;4. Add balance
 - Endpoint: POST http://localhost:8086/tm/addBalance
@@ -100,11 +102,12 @@ This is a Role based(Admin,User) Order Management System designed to help organi
 &nbsp;5. Get balance
 - Endpoint: GET http://localhost:8086/tm/getBalance
 - Description: get Balance of logged user.
-- ![Signin](https://github.com/jitendra511/Order-Management-Saga-Pattern-/blob/main/Images/getBalance.png)
+- ![getBalance](https://github.com/jitendra511/Order-Management-Saga-Pattern-/blob/main/Images/getBalance.png)
   
 &nbsp;6. Update the balance 
 - Endpoint: PUT http://localhost:8086/tm/updateBalance
 - Description: update the balance of logged user.
+- ![updateBalance](https://github.com/jitendra511/Order-Management-Saga-Pattern-/blob/main/Images/updateBalance.png)
 
 &nbsp;7. Create Order 
 - Endpoint: POST http://localhost:8081/order/createOrder

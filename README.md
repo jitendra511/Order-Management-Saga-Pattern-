@@ -86,7 +86,7 @@ This is a Role based(Admin,User) Order Management System designed to help organi
 &nbsp;2. Signin
 - Endpoint: POST http://localhost:8086/auth/signin
 - Description: Log in the user.
-- ![image alt](https://github.com/jitendra511/Order-Management-Saga-Pattern-/blob/main/Images/signin.png?raw=true)
+- ![Signin](https://github.com/jitendra511/Order-Management-Saga-Pattern-/blob/main/Images/signin.png?raw=true)
 
 &nbsp;3. Get all user (only admin can access)
 - Endpoint: GET http://localhost:8086/tm/getAllUser
@@ -100,7 +100,8 @@ This is a Role based(Admin,User) Order Management System designed to help organi
 &nbsp;5. Get balance
 - Endpoint: GET http://localhost:8086/tm/getBalance
 - Description: get Balance of logged user.
-
+- ![Signin](https://github.com/jitendra511/Order-Management-Saga-Pattern-/blob/main/Images/getBalance.png)
+  
 &nbsp;6. Update the balance 
 - Endpoint: PUT http://localhost:8086/tm/updateBalance
 - Description: update the balance of logged user.

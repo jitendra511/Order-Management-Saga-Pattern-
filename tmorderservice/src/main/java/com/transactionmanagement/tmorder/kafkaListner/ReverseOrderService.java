@@ -22,6 +22,7 @@ public class ReverseOrderService {
         try
         {
             OrderEvent orderEvent=new ObjectMapper().readValue(event,OrderEvent.class);
+            System.out.println(orderEvent.getToken());
             Optional<CustomerOrder> customerOrder=orderRepository.findById(orderEvent.getCustomerOrder().getOrderId());
             customerOrder.ifPresent(co->{
                 co.setStatus("Failed");

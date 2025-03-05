@@ -1,6 +1,7 @@
 package com.transactionmanagement.tmstock.kafkaListner;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.transactionmanagement.tmstock.configuration.JwtUtil;
 import com.transactionmanagement.tmstock.dto.CustomerOrder;
 import com.transactionmanagement.tmstock.dto.PaymentEvent;
 import com.transactionmanagement.tmstock.dto.StockEvent;
@@ -20,14 +21,22 @@ public class StockListner {
     @Autowired
     private KafkaTemplate<String, PaymentEvent> paymentKafkaTemplate;
 
+    @Autowired
+    private JwtUtil jwtUtil;
+
     @KafkaListener(topics = "NEW-PAYMENT",groupId = "PAYMENT-GROUP")
     public void updateStock(String event) throws Exception {
         System.out.println("updating stock after creating order");
         PaymentEvent paymentEvent=new ObjectMapper().readValue(event, PaymentEvent.class);
+        String token = paymentEvent.getToken();
         CustomerOrder customerOrder=paymentEvent.getCustomerOrder();
         Stock stock=new Stock();
         try
         {
+            if (token == null || !jwtUtil.validateToken(token)) {
+                System.out.println("Invalid JWT Token. Rejecting stock update.");
+                return;
+            }
             Iterable<Stock> stocks=stockRepository.findByItemName(customerOrder.getItemName());
             boolean itemExist=stocks.iterator().hasNext();
             if(!itemExist)

@@ -41,7 +41,7 @@ public class UserController {
 
     @PreAuthorize("hasRole('USER')")
     @PutMapping("/updateBalance")
-    public int updateBalance(@RequestHeader("Authorization") String token,int balance)
+    public int updateBalance(@RequestHeader("Authorization") String token,@RequestParam int balance)
     {
         return userService.updateBalance(balance);
     }

@@ -3,9 +3,9 @@ package com.transactionmanagement.tmorder.service;
 import com.transactionmanagement.tmorder.repository.OrderRepository;
 import com.transactionmanagement.tmorder.dto.OrderEvent;
 import com.transactionmanagement.tmorder.entity.CustomerOrder;
-import org.apache.kafka.common.protocol.types.Field;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +15,7 @@ public class OrderService {
     private OrderRepository orderRepository;
     @Autowired
     private KafkaTemplate<String,OrderEvent> kafkaTemplate;
+
     public CustomerOrder createOrder(CustomerOrder customerOrder)
     {
         System.out.println("creating order");

@@ -1,8 +1,6 @@
 package com.transactionmanagement.tmstock.configuration;
 
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -13,33 +11,43 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-import javax.crypto.SecretKey;
+
 import java.io.IOException;
 import java.util.List;
+
+@Component
 public class JwtValidate extends OncePerRequestFilter {
+
+    private final JwtUtil jwtUtil;
+    public JwtValidate(JwtUtil jwtUtil) {
+        this.jwtUtil = jwtUtil;
+    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
-        String jwt=request.getHeader(Jwt.JWT_HEADER);
-        if(jwt!=null && jwt.startsWith("Bearer "))
-        {
-            jwt=jwt.substring(7);
-            try{
-                SecretKey secretKey= Keys.hmacShaKeyFor(Jwt.SECRET_KEY.getBytes());
-                Claims claims= Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(jwt).getBody();
-                String email=String.valueOf(claims.get("email"));
-                String authorities=String.valueOf(claims.get("authorities"));
-                List<GrantedAuthority> grantedAuthorities= AuthorityUtils.commaSeparatedStringToAuthorityList(authorities);
-                Authentication authentication=new UsernamePasswordAuthenticationToken(email,jwt,grantedAuthorities);
+
+        String jwt = request.getHeader("Authorization");  // No need for JwtUtil.JWT_HEADER
+        if (jwt != null && jwt.startsWith("Bearer ")) {
+            jwt = jwt.substring(7);
+            try {
+                Claims claims = jwtUtil.extractClaims(jwt);  // Use JwtUtil to validate and extract claims
+
+                String email = claims.get("email", String.class);
+                String authorities = claims.get("authorities", String.class);
+
+                List<GrantedAuthority> grantedAuthorities = AuthorityUtils.commaSeparatedStringToAuthorityList(authorities);
+                Authentication authentication = new UsernamePasswordAuthenticationToken(email, jwt, grantedAuthorities);
+
                 SecurityContextHolder.getContext().setAuthentication(authentication);
-            }
-            catch (Exception e)
-            {
-                throw new BadCredentialsException("Invalid token");
+                System.out.println("Extracted Roles: " + authorities);
+            } catch (Exception e) {
+                throw new BadCredentialsException("Invalid token: " + e.getMessage());
             }
         }
-        filterChain.doFilter(request,response);
+
+        filterChain.doFilter(request, response);
     }
 }

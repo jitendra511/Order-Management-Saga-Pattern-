@@ -1,6 +1,7 @@
 package com.transactionmanagement.tmpayment.kafkaListner;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.transactionmanagement.tmpayment.configuration.JwtUtil;
 import com.transactionmanagement.tmpayment.dto.CustomerOrder;
 import com.transactionmanagement.tmpayment.dto.OrderEvent;
 import com.transactionmanagement.tmpayment.dto.PaymentEvent;
@@ -10,7 +11,9 @@ import com.transactionmanagement.tmpayment.repository.PaymentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.stereotype.Component;
 
+@Component
 public class CreatePayment {
     @Autowired
     private PaymentRepository paymentRepository;
@@ -21,6 +24,9 @@ public class CreatePayment {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private JwtUtil jwtUtil;
+
     @KafkaListener(topics = "NEW-ORDER",groupId = "ORDER-GROUP")
     public void createPayment(String event) throws Exception {
         System.out.println("creating the payment");
@@ -28,12 +34,19 @@ public class CreatePayment {
         String token = orderEvent.getToken();
         System.out.println("token "+token);
         CustomerOrder customerOrder=orderEvent.getCustomerOrder();
+        System.out.println(customerOrder.getQuantity()+" "+customerOrder.getPrice());
         Integer totalPayment= (int)(customerOrder.getQuantity()*customerOrder.getPrice());
+        System.out.println(totalPayment);
         Payment payment=new Payment();
         try
         {
+            if (token == null || !jwtUtil.validateToken(token)) {
+                System.out.println("Invalid JWT Token. Rejecting stock update.");
+                return;
+            }
             Integer currentBalance=userService.getBalance("Bearer " +token);
-            Integer remainingBalance = null;
+            Integer remainingBalance = 0;
+            System.out.println(currentBalance+" "+remainingBalance+" "+totalPayment);
             if(currentBalance>=totalPayment)
             {
                 remainingBalance=currentBalance-totalPayment;
@@ -63,6 +76,7 @@ public class CreatePayment {
             paymentRepository.save(payment);
 
             OrderEvent oEvent=new OrderEvent();
+            oEvent.setToken(token);
             oEvent.setType("REVERSED-ORDER");
             oEvent.setCustomerOrder(customerOrder);
             orderKafkaTemplate.send("REVERSED-ORDER",oEvent);

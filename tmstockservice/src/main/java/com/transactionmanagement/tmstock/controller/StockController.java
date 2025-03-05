@@ -26,7 +26,7 @@ public class StockController {
         return stockService.addItem(stock);
     }
 
-    @PreAuthorize("hasRole('ADMIN',USER)")
+    @PreAuthorize("hasRole('USER')")
     @GetMapping("/getQuantity")
     public Long getQuantity(@RequestParam String item)
     {

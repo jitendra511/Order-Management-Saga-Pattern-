@@ -7,7 +7,9 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
@@ -20,36 +22,48 @@ import java.util.Collections;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class MyWebSecurityConfig {
-    @Bean
-    SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
-        httpSecurity.sessionManagement(
-                        management->management.sessionCreationPolicy(
-                                SessionCreationPolicy.STATELESS
-                        )
-                ).authorizeHttpRequests(
-                        Authorize->Authorize.requestMatchers("/order/**").authenticated()
 
-                                .anyRequest().permitAll()
-                ).addFilterBefore(new JwtValidate(), BasicAuthenticationFilter.class)
-                .csrf(csrf->csrf.disable())
-                .cors(cors->cors.configurationSource(corsConfigurationSource()))
-                .httpBasic(Customizer.withDefaults())
-                .formLogin(Customizer.withDefaults());
+    private final JwtValidate jwtValidate;
+
+    // Inject JwtValidate into the config
+    public MyWebSecurityConfig(JwtValidate jwtValidate) {
+        this.jwtValidate = jwtValidate;
+    }
+
+    @Bean
+    public UserDetailsService userDetailsService() {
+        return username -> {
+            throw new UnsupportedOperationException("UserDetailsService is not required for JWT validation.");
+        };
+    }
+
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+        httpSecurity
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/stock/**").authenticated()
+                        .anyRequest().permitAll()
+                )
+                .addFilterBefore(jwtValidate, BasicAuthenticationFilter.class) // Injected JwtValidate
+                .csrf(AbstractHttpConfigurer::disable)
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+                .formLogin(AbstractHttpConfigurer::disable)
+                .httpBasic(AbstractHttpConfigurer::disable);
+
         return httpSecurity.build();
     }
-    private CorsConfigurationSource corsConfigurationSource()
-    {
-        return new CorsConfigurationSource() {
-            @Override
-            public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
-                CorsConfiguration corsConfiguration=new CorsConfiguration();
-                corsConfiguration.setAllowedOrigins(Collections.singletonList("*"));
-                corsConfiguration.setAllowedMethods(Collections.singletonList("*"));
-                corsConfiguration.setAllowCredentials(true);
-                corsConfiguration.setAllowedHeaders(Collections.singletonList("*"));
-                corsConfiguration.setExposedHeaders(Arrays.asList("Authorization"));
-                return corsConfiguration;
-            }
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        return request -> {
+            CorsConfiguration corsConfiguration = new CorsConfiguration();
+            corsConfiguration.setAllowedOrigins(Collections.singletonList("*"));
+            corsConfiguration.setAllowedMethods(Collections.singletonList("*"));
+            corsConfiguration.setAllowCredentials(true);
+            corsConfiguration.setAllowedHeaders(Collections.singletonList("*"));
+            corsConfiguration.setExposedHeaders(Arrays.asList("Authorization"));
+            return corsConfiguration;
         };
     }
 }

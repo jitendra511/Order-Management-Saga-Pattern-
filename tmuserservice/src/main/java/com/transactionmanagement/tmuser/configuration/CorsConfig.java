@@ -1,4 +1,4 @@
-package com.transactionmanagement.tmuser.configuration;
+package com.transactionmanagement.tmorder.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

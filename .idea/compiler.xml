@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="tmorderservice" />
+        <module name="tmdeliveryservice" />
+        <module name="tmstockservice" />
+        <module name="tmpaymentservice" />
+      </profile>
+      <profile name="Annotation profile for tmuserservice" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath>
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/unknown/lombok-unknown.jar" />
+        </processorPath>
+        <module name="tmuserservice" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="tmdeliveryservice" target="19" />
+      <module name="tmorderservice" target="19" />
+      <module name="tmpaymentservice" target="19" />
+      <module name="tmstockservice" target="19" />
+      <module name="tmuserservice" target="19" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="tmdeliveryservice" options="-parameters" />
+      <module name="tmorderservice" options="-parameters" />
+      <module name="tmpaymentservice" options="-parameters" />
+      <module name="tmstockservice" options="-parameters" />
+      <module name="tmuserservice" options="-parameters" />
+    </option>
+  </component>
+</project>

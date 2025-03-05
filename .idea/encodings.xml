@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/tmdeliveryservice/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/tmdeliveryservice/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/tmorderservice/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/tmorderservice/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/tmpaymentservice/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/tmpaymentservice/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/tmstockservice/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/tmstockservice/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/tmuserservice/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/tmuserservice/src/main/resources" charset="UTF-8" />
+  </component>
+</project>

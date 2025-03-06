@@ -1,7 +1,6 @@
 package com.transactionmanagement.tmpayment.feign;
 
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestHeader;

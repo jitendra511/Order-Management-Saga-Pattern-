@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
-
 @Component
 public class CreatePayment {
     @Autowired
@@ -23,20 +22,15 @@ public class CreatePayment {
     private KafkaTemplate<String, OrderEvent> orderKafkaTemplate;
     @Autowired
     private UserService userService;
-
     @Autowired
     private JwtUtil jwtUtil;
-
     @KafkaListener(topics = "NEW-ORDER",groupId = "ORDER-GROUP")
     public void createPayment(String event) throws Exception {
         System.out.println("creating the payment");
         OrderEvent orderEvent=new ObjectMapper().readValue(event,OrderEvent.class);
         String token = orderEvent.getToken();
-        System.out.println("token "+token);
         CustomerOrder customerOrder=orderEvent.getCustomerOrder();
-        System.out.println(customerOrder.getQuantity()+" "+customerOrder.getPrice());
         Integer totalPayment= (int)(customerOrder.getQuantity()*customerOrder.getPrice());
-        System.out.println(totalPayment);
         Payment payment=new Payment();
         try
         {
@@ -46,7 +40,6 @@ public class CreatePayment {
             }
             Integer currentBalance=userService.getBalance("Bearer " +token);
             Integer remainingBalance = 0;
-            System.out.println(currentBalance+" "+remainingBalance+" "+totalPayment);
             if(currentBalance>=totalPayment)
             {
                 remainingBalance=currentBalance-totalPayment;
@@ -57,11 +50,9 @@ public class CreatePayment {
             else {
                 throw new Exception("Balance is not enough");
             }
-            System.out.println("remaining balance "+remainingBalance);
             payment.setOrderId(customerOrder.getOrderId());
             payment.setAmount(totalPayment);
             paymentRepository.save(payment);
-
             PaymentEvent paymentEvent=new PaymentEvent();
             paymentEvent.setType("Payment created");
             paymentEvent.setCustomerOrder(customerOrder);
@@ -74,7 +65,6 @@ public class CreatePayment {
             payment.setOrderId(customerOrder.getOrderId());
             payment.setStatus("Failed");
             paymentRepository.save(payment);
-
             OrderEvent oEvent=new OrderEvent();
             oEvent.setToken(token);
             oEvent.setType("REVERSED-ORDER");

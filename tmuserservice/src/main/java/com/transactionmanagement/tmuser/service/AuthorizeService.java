@@ -2,6 +2,7 @@ package com.transactionmanagement.tmuser.service;
 
 import com.transactionmanagement.tmuser.configuration.JwtGenerate;
 import com.transactionmanagement.tmuser.configuration.JwtResponse;
+import com.transactionmanagement.tmuser.configuration.LoginDetails;
 import com.transactionmanagement.tmuser.entity.User;
 import com.transactionmanagement.tmuser.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 @Service
 public class AuthorizeService {
     @Autowired
@@ -40,22 +40,24 @@ public class AuthorizeService {
         createUser.setRole(role);
         createUser.setPassword(passwordEncoder.encode(password));
         User saveUser=userRepository.save(createUser);
+        Long userId=userRepository.findByEmail(email).getId();
         Authentication authentication= new UsernamePasswordAuthenticationToken(email,password);
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        String token= JwtGenerate.generateToken(authentication);
+        String token= JwtGenerate.generateToken(authentication,userId);
         JwtResponse jwtResponse=new JwtResponse();
         jwtResponse.setJwt(token);
         jwtResponse.setMessage("Register is successful");
         jwtResponse.setStatus(true);
         return new ResponseEntity<>(jwtResponse, HttpStatus.OK);
     }
-    public ResponseEntity<JwtResponse> signin(JwtResponse.LoginDetails loginDetails)
+    public ResponseEntity<JwtResponse> signin(LoginDetails loginDetails)
     {
         String username=loginDetails.getEmail();
         String password=loginDetails.getPassword();
+        Long userId=userRepository.findByEmail(username).getId();
         Authentication authentication=authenticate(username,password);
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        String token=JwtGenerate.generateToken(authentication);
+        String token=JwtGenerate.generateToken(authentication,userId);
         JwtResponse jwtResponse=new JwtResponse();
         jwtResponse.setMessage("login successful");
         jwtResponse.setJwt(token);

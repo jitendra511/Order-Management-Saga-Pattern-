@@ -6,15 +6,14 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
-
 @Entity
 @Getter
 @Setter
 public class CustomerOrder {
-
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Id
     private Long orderId;
+    private Long userId;
     private String itemName;
     private int quantity;
     private int price;

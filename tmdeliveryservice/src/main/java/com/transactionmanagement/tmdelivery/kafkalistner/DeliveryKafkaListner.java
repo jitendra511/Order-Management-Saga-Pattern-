@@ -11,14 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
-
 @Component
 public class DeliveryKafkaListner {
     @Autowired
     private DeliveryRepository deliveryRepository;
     @Autowired
     private KafkaTemplate<String,DeliveryEvent> deliveryKafkaTemplate;
-
     @KafkaListener(topics = "NEW-STOCK",groupId = "STOCK-GROUP")
     public void deliverOrder(String event) throws Exception
     {
@@ -46,7 +44,6 @@ public class DeliveryKafkaListner {
             delivery.setId(customerOrder.getOrderId());
             delivery.setStatus("Failed");
             deliveryRepository.save(delivery);
-
             DeliveryEvent reverseDelivery=new DeliveryEvent();
             reverseDelivery.setType("Reverse Delivery");
             reverseDelivery.setCustomerOrder(customerOrder);

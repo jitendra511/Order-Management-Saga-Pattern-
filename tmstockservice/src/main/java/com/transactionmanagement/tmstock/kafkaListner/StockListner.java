@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
-
 @Component
 public class StockListner {
     @Autowired
@@ -20,10 +19,8 @@ public class StockListner {
     private KafkaTemplate<String, StockEvent> stockKafkaTemplate;
     @Autowired
     private KafkaTemplate<String, PaymentEvent> paymentKafkaTemplate;
-
     @Autowired
     private JwtUtil jwtUtil;
-
     @KafkaListener(topics = "NEW-PAYMENT",groupId = "PAYMENT-GROUP")
     public void updateStock(String event) throws Exception {
         System.out.println("updating stock after creating order");

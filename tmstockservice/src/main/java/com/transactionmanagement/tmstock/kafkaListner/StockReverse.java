@@ -2,7 +2,6 @@ package com.transactionmanagement.tmstock.kafkaListner;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.transactionmanagement.tmstock.dto.CustomerOrder;
-import com.transactionmanagement.tmstock.dto.DeliveryEvent;
 import com.transactionmanagement.tmstock.dto.PaymentEvent;
 import com.transactionmanagement.tmstock.dto.StockEvent;
 import com.transactionmanagement.tmstock.entity.Stock;
@@ -11,14 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
-
 @Component
 public class StockReverse {
     @Autowired
     private StockRepository stockRepository;
     @Autowired
     private KafkaTemplate<String,PaymentEvent> paymentKafkaTemplate;
-
     @KafkaListener(topics = "STOCK-REVERSED",groupId = "STOCK-GROUP")
     public void stockReversed(String event)
     {

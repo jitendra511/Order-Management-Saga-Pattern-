@@ -7,14 +7,11 @@ import com.transactionmanagement.tmorder.entity.CustomerOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
-
 import java.util.Optional;
-
 @Service
 public class ReverseOrderService {
     @Autowired
     private OrderRepository orderRepository;
-
     @KafkaListener(topics = "REVERSED-ORDER",groupId = "ORDER-GROUP")
     public void reverseOrder(String event)
     {

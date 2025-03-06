@@ -14,10 +14,8 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
-
 import java.util.Arrays;
 import java.util.Collections;
-
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -39,7 +37,6 @@ public class MyWebSecurityConfig {
                 .formLogin(Customizer.withDefaults());
         return httpSecurity.build();
     }
-
     private CorsConfigurationSource corsConfigurationSource()
     {
         return new CorsConfigurationSource() {
@@ -55,7 +52,6 @@ public class MyWebSecurityConfig {
             }
         };
     }
-
     @Bean
     public PasswordEncoder passwordEncoder()
     {

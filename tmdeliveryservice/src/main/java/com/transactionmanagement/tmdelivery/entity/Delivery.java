@@ -6,12 +6,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
-
 @Getter
 @Setter
 @Entity
 public class Delivery {
-
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Id
     private Long id;

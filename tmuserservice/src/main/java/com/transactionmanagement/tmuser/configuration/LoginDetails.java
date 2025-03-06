@@ -1,4 +1,5 @@
 package com.transactionmanagement.tmuser.configuration;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,8 +8,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class JwtResponse {
-    private String jwt;
-    private String message;
-    private boolean status;
+public class LoginDetails {
+        private String email;
+        private String password;
 }

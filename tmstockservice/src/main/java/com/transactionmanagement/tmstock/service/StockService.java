@@ -1,15 +1,11 @@
 package com.transactionmanagement.tmstock.service;
 
-import com.fasterxml.jackson.databind.jsontype.impl.StdTypeResolverBuilder;
 import com.transactionmanagement.tmstock.entity.Stock;
 import com.transactionmanagement.tmstock.repository.StockRepository;
-import org.apache.kafka.clients.consumer.StickyAssignor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 @Service
 public class StockService {
-
     @Autowired
     private StockRepository stockRepository;
     public Stock addItem(Stock stock)
@@ -31,7 +27,6 @@ public class StockService {
         }
         return stock;
     }
-
     public Long getQuantity(String item)
     {
         return stockRepository.findQuantityByItemName(item);

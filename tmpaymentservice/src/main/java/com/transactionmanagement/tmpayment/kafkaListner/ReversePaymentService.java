@@ -12,7 +12,6 @@ import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import java.util.Optional;
-
 @Service
 public class ReversePaymentService {
     @Autowired
@@ -21,24 +20,19 @@ public class ReversePaymentService {
     private KafkaTemplate<String,OrderEvent> kafkaTemplate;
     @Autowired
     private UserService userService;
-
     @KafkaListener(topics = "REVERSE-PAYMENT",groupId = "PAYMENT-GROUP")
     public void reversePayment(String event) throws JsonProcessingException {
         System.out.println("reversing the payment after revert the stock");
         OrderEvent orderEvent = new ObjectMapper().readValue(event, OrderEvent.class);
         String token = orderEvent.getToken();
-        System.out.println("token "+token);
         CustomerOrder customerOrder=orderEvent.getCustomerOrder();
         Integer totalPayment= (int)(customerOrder.getQuantity()*customerOrder.getPrice());
-        System.out.println("total payment "+totalPayment);
         try
         {
             Optional<Payment> payment =paymentRepository.findById(customerOrder.getOrderId());
             payment.ifPresent(p->{
-                System.out.println(p.getOrderId());
                 Integer updatedBalance = userService.getBalance("Bearer " + token) + totalPayment;
                 userService.updateBalance("Bearer " + token, updatedBalance);
-
                 p.setStatus("Failed");
                 paymentRepository.save(p);
             });

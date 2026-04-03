@@ -33,6 +33,7 @@ public class MyWebSecurityConfig {
         httpSecurity
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/stock/getAllItem").permitAll()
                         .requestMatchers("/stock/**").authenticated()
                         .anyRequest().permitAll()
                 )

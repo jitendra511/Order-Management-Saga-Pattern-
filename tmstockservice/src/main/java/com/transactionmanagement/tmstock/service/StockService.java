@@ -4,6 +4,9 @@ import com.transactionmanagement.tmstock.entity.Stock;
 import com.transactionmanagement.tmstock.repository.StockRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+
 @Service
 public class StockService {
     @Autowired
@@ -30,5 +33,10 @@ public class StockService {
     public Long getQuantity(String item)
     {
         return stockRepository.findQuantityByItemName(item);
+    }
+
+    public List<Stock> getAllItem()
+    {
+        return stockRepository.findAll();
     }
 }

@@ -11,24 +11,28 @@ import java.util.List;
 public class UserController {
     @Autowired
     private UserService userService;
+
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/getAllUser")
     public List<User> getUser()
     {
         return (List<User>) userService.getAllUser();
     }
+
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/addBalance")
     public User addBalance(@RequestParam int balance)
     {
         return userService.addBalance(balance);
     }
+
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/getBalance")
     public int getBalance(@RequestHeader("Authorization") String token)
     {
         return userService.getBalance();
     }
+
     @PreAuthorize("hasRole('USER')")
     @PutMapping("/updateBalance")
     public int updateBalance(@RequestHeader("Authorization") String token,@RequestParam int balance)

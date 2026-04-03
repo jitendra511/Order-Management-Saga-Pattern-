@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.transactionmanagement.tmpayment.dto.CustomerOrder;
 import com.transactionmanagement.tmpayment.dto.OrderEvent;
+import com.transactionmanagement.tmpayment.dto.PaymentEvent;
 import com.transactionmanagement.tmpayment.entity.Payment;
 import com.transactionmanagement.tmpayment.feign.UserService;
 import com.transactionmanagement.tmpayment.repository.PaymentRepository;
@@ -23,23 +24,26 @@ public class ReversePaymentService {
     @KafkaListener(topics = "REVERSE-PAYMENT",groupId = "PAYMENT-GROUP")
     public void reversePayment(String event) throws JsonProcessingException {
         System.out.println("reversing the payment after revert the stock");
-        OrderEvent orderEvent = new ObjectMapper().readValue(event, OrderEvent.class);
-        String token = orderEvent.getToken();
-        CustomerOrder customerOrder=orderEvent.getCustomerOrder();
+        PaymentEvent paymentEvent = new ObjectMapper().readValue(event, PaymentEvent.class);
+
+        String token = paymentEvent.getToken();
+        System.out.println(token);
+        CustomerOrder customerOrder = paymentEvent.getCustomerOrder();
         Integer totalPayment= (int)(customerOrder.getQuantity()*customerOrder.getPrice());
         try
         {
-            Optional<Payment> payment =paymentRepository.findById(customerOrder.getOrderId());
-            payment.ifPresent(p->{
+            Optional<Payment> payment = paymentRepository.findByOrderId(customerOrder.getOrderId());            payment.ifPresent(p->{
                 Integer updatedBalance = userService.getBalance("Bearer " + token) + totalPayment;
                 userService.updateBalance("Bearer " + token, updatedBalance);
                 p.setStatus("Failed");
                 paymentRepository.save(p);
             });
+            OrderEvent orderEvent = new OrderEvent();
             orderEvent.setType("ORDER-REVERSED");
             orderEvent.setCustomerOrder(customerOrder);
             orderEvent.setToken(token);
             kafkaTemplate.send("REVERSED-ORDER",orderEvent);
+            System.out.println("Payment reversed successfully");
         }catch (Exception e)
         {
             System.out.println("Exception occured during revert the payment"+e.getMessage());

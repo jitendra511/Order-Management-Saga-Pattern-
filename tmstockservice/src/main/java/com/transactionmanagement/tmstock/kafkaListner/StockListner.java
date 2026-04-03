@@ -59,10 +59,11 @@ public class StockListner {
         }
         catch (Exception e)
         {
-            System.out.println("updating stock is failed so reverting the order");
+            System.out.println("updating stock is failed");
             PaymentEvent pEvent=new PaymentEvent();
             pEvent.setType("PAYMENT-REVERSED");
             pEvent.setCustomerOrder(customerOrder);
+            pEvent.setToken(token);
             paymentKafkaTemplate.send("REVERSE-PAYMENT",pEvent);
             System.out.println("Exception occurred: " + e.getMessage());
         }

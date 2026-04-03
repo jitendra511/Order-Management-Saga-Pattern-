@@ -12,4 +12,5 @@ public class CustomerOrder {
     private String paymentMode;
     private String status;
     private String address;
+    private Long userId;
 }

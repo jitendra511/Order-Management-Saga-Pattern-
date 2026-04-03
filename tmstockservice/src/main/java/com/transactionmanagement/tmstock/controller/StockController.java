@@ -5,6 +5,9 @@ import com.transactionmanagement.tmstock.service.StockService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 @RestController
 @RequestMapping("/stock")
 public class StockController {
@@ -21,5 +24,12 @@ public class StockController {
     public Long getQuantity(@RequestParam String item)
     {
         return stockService.getQuantity(item);
+    }
+
+
+    @GetMapping("/getAllItem")
+    public List<Stock> getAllItem()
+    {
+        return stockService.getAllItem();
     }
 }

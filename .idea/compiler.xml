@@ -23,11 +23,11 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="tmdeliveryservice" target="19" />
-      <module name="tmorderservice" target="19" />
-      <module name="tmpaymentservice" target="19" />
-      <module name="tmstockservice" target="19" />
-      <module name="tmuserservice" target="19" />
+      <module name="tmdeliveryservice" target="21" />
+      <module name="tmorderservice" target="21" />
+      <module name="tmpaymentservice" target="21" />
+      <module name="tmstockservice" target="21" />
+      <module name="tmuserservice" target="21" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">

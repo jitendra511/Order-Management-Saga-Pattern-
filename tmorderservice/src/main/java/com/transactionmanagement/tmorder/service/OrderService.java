@@ -25,10 +25,8 @@ public class OrderService {
             String token = SecurityContextHolder.getContext().getAuthentication().getCredentials().toString();
             Long userId = jwtUtil.getUserId(token);
             customerOrder.setUserId(userId);
-            System.out.println("User ID: " + userId);
             customerOrder.setStatus("Created");
             orderRepository.save(customerOrder);
-            System.out.println("token "+token);
             OrderEvent orderEvent=new OrderEvent();
             orderEvent.setType("Order Created");
             orderEvent.setToken(token);

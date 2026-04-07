@@ -1,0 +1,5 @@
+CREATE DATABASE tmuser;
+CREATE DATABASE tmorder;
+CREATE DATABASE tmpayment;
+CREATE DATABASE tmstock;
+CREATE DATABASE tmdelivery;

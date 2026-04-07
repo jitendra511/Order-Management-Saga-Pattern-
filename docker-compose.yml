@@ -1,6 +1,6 @@
 services:
     user-service:
-        build: ./tmuserservice
+        image: jitendra511/user-service:v1
         container_name: user-service
         ports:
             - "8086:8086"
@@ -13,7 +13,7 @@ services:
             - SPRING_DATASOURCE_PASSWORD=Jitendra
     
     order-service:
-        build: ./tmorderservice
+        image: jitendra511/order-service:v1
         container_name: order-service
         ports:
             - "8081:8081"
@@ -29,7 +29,7 @@ services:
             - SPRING_KAFKA_BOOTSTRAP_SERVERS=kafka:9092
 
     payment-service:
-        build: ./tmpaymentservice
+        image: jitendra511/payment-service:v1
         container_name: payment-service
         ports:
             - "8082:8082"
@@ -45,7 +45,7 @@ services:
             - SPRING_KAFKA_BOOTSTRAP_SERVERS=kafka:9092
 
     stock-service:
-        build: ./tmstockservice
+        image: jitendra511/stock-service:v1
         container_name: stock-service
         ports:
             - "8083:8083"
@@ -61,7 +61,7 @@ services:
             - SPRING_KAFKA_BOOTSTRAP_SERVERS=kafka:9092
 
     delivery-service:
-        build: ./tmdeliveryservice
+        image: jitendra511/delivery-service:v1
         container_name: delivery-service
         ports:
             - "8084:8084"

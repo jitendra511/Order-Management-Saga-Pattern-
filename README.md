@@ -1,3 +1,15 @@
+## 📑 Table of Contents
+
+* [🚀 Tech Stack](#-tech-stack)
+* [🏗️ Architecture](#️-architecture)
+* [🐳 Docker Setup](#-docker-setup)
+* [📦 Docker Images](#-docker-images)
+* [📁 Project Structure](#-project-structure)
+* [✨ Features](#-features)
+* [🔄 Saga Flow](#-saga-flow)
+* [🔐 API Endpoints](#-api-endpoints)
+* [🔮 Future Improvements](#-future-improvements)
+
 
 # Order Management Saga Pattern
 

@@ -36,8 +36,6 @@ Key Concepts:
 
 ---
 
-### 🚀 Steps to Run the Project
-
 1. Clone the repository:
 git clone https://github.com/jitendra511/Order-Management-Saga-Pattern-.git
 
@@ -132,7 +130,7 @@ http://localhost:8086/auth/signin
 * **Description:** Log in the user
 
 <p align="center">
-  <img src="Images/Signin.png" width="400"/>
+  <img src="Images/signin.png" width="400"/>
 </p>
 
 ---

@@ -27,12 +27,12 @@ Key Concepts:
 
 ##  Docker Setup
 
-### Prerequisites
+### ✅ Prerequisites
 
-Make sure the following are installed:
+- Docker Desktop (includes Docker Engine and Docker Compose)
+- Git
 
-- Docker  
-- Docker Compose  
+👉 After installation, make sure Docker Desktop is running.
 
 ---
 
@@ -101,76 +101,175 @@ project-root/
 - Delivery service handles shipment
 
 
-## API Endpoints
+## 🔐 API Endpoints
+
 ### 1. Signup
-- Endpoint: POST http://localhost:8086/auth/signup
-- Description: Register a new user
-  <p align="left">
-    <img src="Images/Signup.png" width="800"/>
-  </p>
+
+* **Method:** POST
+* **URL:**
+
+```
+http://localhost:8086/auth/signup
+```
+
+* **Description:** Register a new user
+
+<p align="center">
+  <img src="Images/Signup.png" width="400"/>
+</p>
+
+---
 
 ### 2. Signin
-- Endpoint: POST http://localhost:8086/auth/signin
-- Description: Log in the user.
-  <p align="left">
-    <img src="" width="800"/>
-  </p>
 
-### 3. Get all user (only admin can access)
-- Endpoint: GET http://localhost:8086/tm/getAllUser
-- Description: Retrieves all User.
-  <p align="left">
-    <img src="Images/getAllUser.png" width="800"/>
-  </p>
-  
-### 4. Add balance
-- Endpoint: POST http://localhost:8086/tm/addBalance
-- Description: Add balance to the logged user.
-  <p align="left">
-    <img src="Images/Add_Balance.png" width="800"/>
-  </p>
+* **Method:** POST
+* **URL:**
 
-### 5. Get balance
-- Endpoint: GET http://localhost:8086/tm/getBalance
-- Description: get Balance of logged user.
-  <p align="left">
-    <img src="Images/Get_Balance.png" width="800"/>
-  </p>
-  
-### 6. Update the balance 
-- Endpoint: PUT http://localhost:8086/tm/updateBalance
-- Description: update the balance of logged user.
-  <p align="left">
-    <img src="Images/updateBalance.png" width="800"/>
-  </p>
-  
-### 7. Create Order 
-- Endpoint: POST http://localhost:8081/order/createOrder
-- Description: user is creating the order.
-  <p align="left">
-    <img src="Images/Create_Order.png" width="800"/>
-  </p>
+```
+http://localhost:8086/auth/signin
+```
+
+* **Description:** Log in the user
+
+<p align="center">
+  <img src="Images/Signin.png" width="400"/>
+</p>
+
+---
+
+### 3. Get All Users (Admin Only)
+
+* **Method:** GET
+* **URL:**
+
+```
+http://localhost:8086/tm/getAllUser
+```
+
+* **Description:** Retrieves all users
+
+<p align="center">
+  <img src="Images/getAllUser.png" width="400"/>
+</p>
+
+---
+
+### 4. Add Balance
+
+* **Method:** POST
+* **URL:**
+
+```
+http://localhost:8086/tm/addBalance
+```
+
+* **Description:** Add balance to the logged-in user
+
+<p align="center">
+  <img src="Images/Add_Balance.png" width="400"/>
+</p>
+
+---
+
+### 5. Get Balance
+
+* **Method:** GET
+* **URL:**
+
+```
+http://localhost:8086/tm/getBalance
+```
+
+* **Description:** Retrieve balance of the logged-in user
+
+<p align="center">
+  <img src="Images/Get_Balance.png" width="400"/>
+</p>
+
+---
+
+### 6. Update Balance
+
+* **Method:** PUT
+* **URL:**
+
+```
+http://localhost:8086/tm/updateBalance
+```
+
+* **Description:** Update the balance of the logged-in user
+
+<p align="center">
+  <img src="Images/updateBalance.png" width="400"/>
+</p>
+
+---
+
+### 7. Create Order
+
+* **Method:** POST
+* **URL:**
+
+```
+http://localhost:8081/order/createOrder
+```
+
+* **Description:** Create a new order
+
+<p align="center">
+  <img src="Images/Create_Order.png" width="400"/>
+</p>
+
+---
 
 ### 8. Get My Orders
-- Endpoint: GET http://localhost:8081/order/getMyOrders
-- Description: get all past orders of logged user.
-  <p align="left">
-    <img src="Images/Get_My_Orders.png" width="800"/>
-  </p>
 
-### 9. Add Item To Stock (only admin can access)
-- Endpoint: POST http://localhost:8083/stock/addItem
-- Description: Add item to stock.
-  <p align="left">
-    <img src="Images/Add_Item.png" width="800"/>
-  </p>
+* **Method:** GET
+* **URL:**
 
-### 10. Get All Item Of Stock
-- Endpoint: GET http://localhost:8083/stock/getAllItem
-- Description: get all Item od stock
-  <p align="left">
-    <img src="Images/Get_All_Item.png" width="800"/>
-  </p>
+```
+http://localhost:8081/order/getMyOrders
+```
+
+* **Description:** Retrieve all past orders of the logged-in user
+
+<p align="center">
+  <img src="Images/Get_My_Orders.png" width="400"/>
+</p>
+
+---
+
+### 9. Add Item to Stock (Admin Only)
+
+* **Method:** POST
+* **URL:**
+
+```
+http://localhost:8083/stock/addItem
+```
+
+* **Description:** Add item to stock
+
+<p align="center">
+  <img src="Images/Add_Item.png" width="400"/>
+</p>
+
+---
+
+### 10. Get All Items of Stock
+
+* **Method:** GET
+* **URL:**
+
+```
+http://localhost:8083/stock/getAllItem
+```
+
+* **Description:** Retrieve all items from stock
+
+<p align="center">
+  <img src="Images/Get_All_Item.png" width="400"/>
+</p>
 
 ##  Future Improvements
 

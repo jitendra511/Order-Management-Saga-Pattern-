@@ -2,7 +2,7 @@
 
 * [🚀 Tech Stack](#-tech-stack)
 * [🏗️ Architecture](#️-architecture)
-* [🐳 Docker Setup](#-docker-setup)
+* [🐳 Docker Setup & Run](#-docker-setup-&-run)
 * [📦 Docker Images](#-docker-images)
 * [📁 Project Structure](#-project-structure)
 * [✨ Features](#-features)
@@ -37,7 +37,7 @@ Key Concepts:
 - Event-driven communication using Kafka
 - Saga Pattern for distributed transaction management
 
-##  Docker Setup
+##  Docker Setup & Run
 
 ### ✅ Prerequisites
 

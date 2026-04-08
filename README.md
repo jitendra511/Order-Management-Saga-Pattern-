@@ -36,20 +36,46 @@ Key Concepts:
 
 ---
 
-1. Clone the repository:
+### 🚀 Steps to Run the Project
+
+### 1. Clone the repository
+
+```
 git clone https://github.com/jitendra511/Order-Management-Saga-Pattern-.git
+```
 
-2. cd your-repo
+---
 
-3. Start Docker Desktop (ensure Docker is running)
+### 2. Navigate into the project directory
 
-4. Run the application:
+```
+cd Order-Management-Saga-Pattern-
+```
 
- - docker-compose up -d
+---
 
-5. Stop the Application
+### 3. Start Docker Desktop
 
- - docker-compose down
+Ensure Docker is running before proceeding.
+
+---
+
+### 4. Run the application
+
+```
+docker-compose up -d
+```
+
+> This will start all microservices, MySQL, and Kafka containers.
+
+---
+
+### 5. Stop the application
+
+```
+docker-compose down
+```
+
 
 ### ⚠️ Notes
 

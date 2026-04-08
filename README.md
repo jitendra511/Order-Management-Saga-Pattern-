@@ -1,8 +1,8 @@
 ## 📑 Table of Contents
 
 * [🚀 Tech Stack](#-tech-stack)
-* [🏗️ Architecture](#️-architecture)
-* [🐳 Docker Setup & Run](#-docker-setup-&-run)
+* [🏗️ Architecture](#-architecture)
+* [🐳 Setup & Run](#-setup--run)
 * [📦 Docker Images](#-docker-images)
 * [📁 Project Structure](#-project-structure)
 * [✨ Features](#-features)
@@ -10,12 +10,11 @@
 * [🔐 API Endpoints](#-api-endpoints)
 * [🔮 Future Improvements](#-future-improvements)
 
-
 # Order Management Saga Pattern
 
 A distributed Order Management System built using Spring Boot Microservices, implementing the Saga Pattern for handling distributed transactions with Apache Kafka.
 
-## Tech Stack
+## 🚀 Tech Stack
 
 - Java
 - Spring Boot
@@ -25,7 +24,7 @@ A distributed Order Management System built using Spring Boot Microservices, imp
 - Docker & Docker Compose
 - JWT Authentication
 
-## Architecture
+## 🏗️ Architecture
 5 Microservices:
 - User Service
 - Order Service
@@ -37,7 +36,7 @@ Key Concepts:
 - Event-driven communication using Kafka
 - Saga Pattern for distributed transaction management
 
-##  Docker Setup & Run
+## 🐳 Setup & Run
 
 ### ✅ Prerequisites
 
@@ -95,7 +94,7 @@ docker-compose down
 - Kafka & MySQL containers will start automatically via Docker Compose
 
 
-## Docker Images
+## 📦 Docker Images
 
 - jitendra511/user-service:v1
 - jitendra511/order-service:v1
@@ -109,7 +108,7 @@ docker-compose down
   <em>Docker Hub repositories for all microservices</em>
 </p>
 
-## Project Structure
+## 📁 Project Structure
 
 ```
 project-root/
@@ -127,7 +126,7 @@ project-root/
 └── README.md
 ```
 
-## Features
+## ✨ Features
 
 - Microservices Architecture
 - JWT Authentication (Role-based: Admin/User)
@@ -135,7 +134,7 @@ project-root/
 - Event-driven communication using Kafka
 - Distributed transaction management
 
-## Saga Flow
+## 🔄 Saga Flow
 - User creates order
 - Order service publishes event
 - Payment service processes payment
@@ -313,7 +312,7 @@ http://localhost:8083/stock/getAllItem
   <img src="Images/Get_All_Item.png" width="400"/>
 </p>
 
-##  Future Improvements
+## 🔮 Future Improvements
 
 - Implement centralized API Gateway (Spring Cloud Gateway)
 - Add Service Discovery using Eureka

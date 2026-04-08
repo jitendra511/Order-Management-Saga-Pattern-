@@ -91,6 +91,12 @@ docker-compose down
 - jitendra511/stock-service:v1
 - jitendra511/delivery-service:v1
 
+  <p align="center">
+  <img src="Images/Images_in_ Docker-Hub.png" width="700"/>
+  <br/>
+  <em>Docker Hub repositories for all microservices</em>
+</p>
+
 ## Project Structure
 
 ```
